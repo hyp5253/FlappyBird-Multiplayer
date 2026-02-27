@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class SpawnPipe : NetworkBehaviour
 {
+    // reference to the pipe prefab we want to spawn handled by the network manager
     public NetworkObject pipe;
-    public float spawnRate = 2;
+
+    // external tunables
+    public float spawnRate = 6;
     private float timer = 0;
     public float heightOffset = 6;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    // overriding the behaviour of the network spawn to spawn a pipe immediately when the game starts
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
@@ -19,7 +23,6 @@ public class SpawnPipe : NetworkBehaviour
     void Update()
     {
         if (!IsServer) return;
-
         if (timer < spawnRate) timer += Time.deltaTime;
         else
         {
@@ -28,6 +31,7 @@ public class SpawnPipe : NetworkBehaviour
         }
     }
 
+    // spawns a pipe at a random height within the height offset range
     void spawnPipe() 
     {
         float lowestPoint = transform.position.y - heightOffset;
