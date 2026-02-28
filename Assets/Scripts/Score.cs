@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Score : NetworkBehaviour
 {
@@ -15,5 +16,5 @@ public class Score : NetworkBehaviour
         if (!IsServer) return;
         score.Value += points;
     }
-    
+
 }

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Unity.Netcode;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class BirdScript : NetworkBehaviour
 
     private SpriteRenderer spriteRenderer;
     public NetworkVariable<bool> isAlive = new NetworkVariable<bool>(true);
+
+    public GameObject GameOverScreen;
 
     // Predefined color palette for players
     private static readonly Color[] PlayerColors = new Color[]
@@ -59,24 +62,17 @@ public class BirdScript : NetworkBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!IsServer) return;
-    
+
         if (collision.gameObject.CompareTag("Pipe"))
         {
             isAlive.Value = false;
-            CheckGameOver();
+
+            if (GameOverManager.Instance != null)
+            {
+                GameOverManager.Instance.CheckGameOver();
+            }
         }
     }
 
-    private void CheckGameOver()
-    {
-        // Check if all players are dead
-        BirdScript[] birds = FindObjectsOfType<BirdScript>();
-        int numberOfBirdsAlive = 0;
-
-        foreach (var bird in birds)
-        {
-            numberOfBirdsAlive = (bird.isAlive.Value) ? numberOfBirdsAlive + 1 : numberOfBirdsAlive;
-        }
-    }
 
 }

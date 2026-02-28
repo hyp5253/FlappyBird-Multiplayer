@@ -5,6 +5,7 @@ using TMPro;
 public class DisplayScore : MonoBehaviour
 {
     public TMP_Text scoreText;
+    public GameObject GameOverScreen;
 
     // Update is called once per frame
     void Update()
