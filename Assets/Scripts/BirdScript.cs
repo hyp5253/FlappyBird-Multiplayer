@@ -7,6 +7,7 @@ public class BirdScript : NetworkBehaviour
     public float FlapForce = 10f;
 
     private SpriteRenderer spriteRenderer;
+    public NetworkVariable<bool> isAlive = new NetworkVariable<bool>(true);
 
     // Predefined color palette for players
     private static readonly Color[] PlayerColors = new Color[]
@@ -43,6 +44,10 @@ public class BirdScript : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+        if (!isAlive) return;
+        {
+            
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FlapServerRpc();
