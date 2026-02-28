@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class BirdScript : NetworkBehaviour
@@ -44,14 +45,8 @@ public class BirdScript : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-        if (!isAlive) return;
-        {
-            
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            FlapServerRpc();
-        }
+        if (isAlive.Value != true) return;
+        if (Input.GetKeyDown(KeyCode.Space)) FlapServerRpc();
     }
 
     // function executed on server side
@@ -60,4 +55,28 @@ public class BirdScript : NetworkBehaviour
     {
         Rigidbody2D.linearVelocity = Vector2.up * FlapForce;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!IsServer) return;
+    
+        if (collision.gameObject.CompareTag("Pipe"))
+        {
+            isAlive.Value = false;
+            CheckGameOver();
+        }
+    }
+
+    private void CheckGameOver()
+    {
+        // Check if all players are dead
+        BirdScript[] birds = FindObjectsOfType<BirdScript>();
+        int numberOfBirdsAlive = 0;
+
+        foreach (var bird in birds)
+        {
+            numberOfBirdsAlive = (bird.isAlive.Value) ? numberOfBirdsAlive + 1 : numberOfBirdsAlive;
+        }
+    }
+
 }
