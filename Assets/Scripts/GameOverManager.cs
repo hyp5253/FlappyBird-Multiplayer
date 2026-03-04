@@ -26,6 +26,7 @@ public class GameOverManager : NetworkBehaviour
     {
         if (!IsServer) return;
 
+        // FIXME don't use the depracated FindObjectsOfTyp
         BirdScript[] birds = FindObjectsOfType<BirdScript>();
         int numberOfBirdsAlive = 0;
 
