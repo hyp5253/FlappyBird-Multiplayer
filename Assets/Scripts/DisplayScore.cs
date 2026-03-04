@@ -7,7 +7,7 @@ public class DisplayScore : MonoBehaviour
     public TMP_Text scoreText;
     public GameObject GameOverScreen;
 
-    // Update is called once per frame
+    // we get each player's score component and display it on the screen
     void Update()
     {
         scoreText.text = "Scores:\n";

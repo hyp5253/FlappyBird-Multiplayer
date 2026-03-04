@@ -642,8 +642,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 656587509}
-  - component: {fileID: 656587508}
   - component: {fileID: 656587507}
+  - component: {fileID: 656587508}
   m_Layer: 0
   m_Name: GameOverManager
   m_TagString: Untagged
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
   ShowTopMostFoldoutHeaderGroup: 1
-  gameOverScreen: {fileID: 0}
+  gameOverScreen: {fileID: 2116131125}
 --- !u!4 &656587509
 Transform:
   m_ObjectHideFlags: 0

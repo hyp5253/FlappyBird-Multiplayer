@@ -11,6 +11,7 @@ public class Score : NetworkBehaviour
         NetworkVariableWritePermission.Server
     );
     
+    // simple score mutater function called on server side
     public void AddScore(int points)
     {
         if (!IsServer) return;

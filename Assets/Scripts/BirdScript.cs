@@ -59,6 +59,8 @@ public class BirdScript : NetworkBehaviour
         Rigidbody2D.linearVelocity = Vector2.up * FlapForce;
     }
 
+    // if the player collides with a pipe they can't flap anymore aka isAlive is false
+    // also we have to check asks the GameOverManager to check if the game is over because of this collision
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!IsServer) return;

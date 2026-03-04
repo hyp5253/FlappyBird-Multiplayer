@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class PipeScoreTrigger : NetworkBehaviour
 {
+    // use a hashset to check if a bird has already scored
+    // allows for multiple players instead of a single global pass through flag
     private HashSet<ulong> alreadyScored = new HashSet<ulong>();
 
+    // when a bird enters the trigger, check if it has already scored and if not, increment the score
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!IsServer) return;
