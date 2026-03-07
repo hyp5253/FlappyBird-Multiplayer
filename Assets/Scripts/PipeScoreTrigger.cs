@@ -15,14 +15,12 @@ public class PipeScoreTrigger : NetworkBehaviour
         if (!IsServer) return;
 
         var bird = collision.GetComponent<BirdScript>();
-        if (bird != null)
+        var score = bird.GetComponent<Score>();
+
+        if (bird != null && score != null && !alreadyScored.Contains(bird.OwnerClientId))
         {
-            var score = bird.GetComponent<Score>();
-            if (score != null && !alreadyScored.Contains(bird.OwnerClientId))
-            {
-                score.score.Value += 1;
-                alreadyScored.Add(bird.OwnerClientId);
-            }
+            score.score.Value += 1;
+            alreadyScored.Add(bird.OwnerClientId);
         }
     }
 
