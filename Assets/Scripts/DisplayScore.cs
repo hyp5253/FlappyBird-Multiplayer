@@ -10,17 +10,16 @@ public class DisplayScore : MonoBehaviour
     // we get each player's score component and display it on the screen
     void Update()
     {
+        // Mini score section title
         scoreText.text = "Scores:\n";
 
-        BirdScript[] birds = FindObjectsOfType<BirdScript>();
+        BirdScript[] birds = FindObjectsByType<BirdScript>(FindObjectsSortMode.None);
 
         foreach (var bird in birds)
         {
             Score score = bird.GetComponent<Score>();
-            if (score != null) 
-            {
-                scoreText.text += $"P {bird.OwnerClientId}: {score.score.Value}\n";
-            }
+            if (score != null) // guard case before players score any points
+                scoreText.text += $"P{bird.OwnerClientId}: {score.score.Value}\n";
         }
 
     }

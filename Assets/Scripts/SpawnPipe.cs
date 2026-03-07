@@ -16,13 +16,14 @@ public class SpawnPipe : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsServer) return;
-        spawnPipe();
+        //spawnPipe();
     }
 
     // Check if we need to spawn a pipe every by tracking time in spawnRate
     void Update()
     {
         if (!IsServer) return;
+        if (!GameOverManager.Instance.IsGameStarted()) return;
         if (timer < spawnRate) timer += Time.deltaTime;
         else
         {

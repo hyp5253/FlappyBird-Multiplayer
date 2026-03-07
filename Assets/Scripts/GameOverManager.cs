@@ -6,6 +6,9 @@ public class GameOverManager : NetworkBehaviour
     public static GameOverManager Instance { get; private set; }
 
     public GameObject gameOverScreen;
+    public GameObject startButton;
+
+    private NetworkVariable<bool> gameStarted = new NetworkVariable<bool>(false);
 
     private void Awake()
     {
@@ -19,6 +22,22 @@ public class GameOverManager : NetworkBehaviour
         if (gameOverScreen != null)
             gameOverScreen.SetActive(false);
     }
+
+    public void StartGame()
+    {
+        if (!IsServer) return;
+        StartGameClientRpc();
+    }
+
+    [ClientRpc]
+    private void StartGameClientRpc()
+    {
+        gameStarted.Value = true;
+        startButton.SetActive(false);
+
+    }
+
+    public bool IsGameStarted() => gameStarted.Value;
 
     // Every time a bird dies, we check if the game is over by counting how many birds are still alive
     public void CheckGameOver()

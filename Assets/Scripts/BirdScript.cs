@@ -29,7 +29,7 @@ public class BirdScript : NetworkBehaviour
     }
 
     // When the player spawns on the network, assign them a color and set their sorting order
-    // this overrides the basic nsb 
+    // this overrides the basic network spawn behavior
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
@@ -47,6 +47,7 @@ public class BirdScript : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
+        if (!GameOverManager.Instance.IsGameStarted()) return;
         if (isAlive.Value != true) return;
         if (Input.GetKeyDown(KeyCode.Space)) FlapServerRpc();
     }
