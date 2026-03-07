@@ -20,6 +20,7 @@ public class GameOverManager : NetworkBehaviour
             gameOverScreen.SetActive(false);
     }
 
+    // Every time a bird dies, we check if the game is over by counting how many birds are still alive
     public void CheckGameOver()
     {
         if (!IsServer) return;
@@ -33,6 +34,8 @@ public class GameOverManager : NetworkBehaviour
             ShowGameOverClientRpc();
     }
 
+    // Server --> Client
+    // The server calls this function to show the game over screen on all clients
     [ClientRpc]
     private void ShowGameOverClientRpc()
     {
