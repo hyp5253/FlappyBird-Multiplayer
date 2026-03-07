@@ -9,19 +9,18 @@ public class BirdScript : NetworkBehaviour
     public float FlapForce = 10f;
 
     private SpriteRenderer spriteRenderer;
-    public NetworkVariable<bool> isAlive = new NetworkVariable<bool>(true);
-
     public GameObject GameOverScreen;
+
+    // we use a network variable to track if the player is alive or not so that it can be synced across all clients
+    public NetworkVariable<bool> isAlive = new NetworkVariable<bool>(true);
 
     // Predefined color palette for players
     private static readonly Color[] PlayerColors = new Color[]
     {
-        Color.yellow,      // Player 1
-        Color.cyan,        // Player 2
-        Color.magenta,     // Player 3
-        Color.green,       // Player 4
-        new Color(1f, 0.5f, 0f), // Orange
-        Color.red
+        Color.orange,    // Player 1
+        Color.yellow,    // Player 2
+        Color.green,     // Player 3
+        Color.blue,      // Player 4
     };
 
     private void Awake()
@@ -52,6 +51,7 @@ public class BirdScript : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) FlapServerRpc();
     }
 
+    // Client --> Server
     // function executed on server side
     [ServerRpc]
     void FlapServerRpc()
@@ -70,11 +70,7 @@ public class BirdScript : NetworkBehaviour
             isAlive.Value = false;
 
             if (GameOverManager.Instance != null)
-            {
                 GameOverManager.Instance.CheckGameOver();
-            }
         }
     }
-
-
 }
