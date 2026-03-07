@@ -19,7 +19,7 @@ public class SpawnPipe : NetworkBehaviour
         spawnPipe();
     }
 
-    // Update is called once per frame
+    // Check if we need to spawn a pipe every by tracking time in spawnRate
     void Update()
     {
         if (!IsServer) return;
