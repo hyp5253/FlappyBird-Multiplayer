@@ -17,36 +17,26 @@ public class GameOverManager : NetworkBehaviour
         Instance = this;
 
         if (gameOverScreen != null)
-        {
             gameOverScreen.SetActive(false);
-        }
     }
 
     public void CheckGameOver()
     {
         if (!IsServer) return;
 
-        // FIXME don't use the depracated FindObjectsOfTyp
-        BirdScript[] birds = FindObjectsOfType<BirdScript>();
+        BirdScript[] birds = FindObjectsByType<BirdScript>(FindObjectsSortMode.None);
         int numberOfBirdsAlive = 0;
 
         foreach (var bird in birds)
-        {
             if (bird.isAlive.Value) numberOfBirdsAlive++;
-        }
-
         if (numberOfBirdsAlive == 0)
-        {
             ShowGameOverClientRpc();
-        }
     }
 
     [ClientRpc]
     private void ShowGameOverClientRpc()
     {
         if (gameOverScreen != null)
-        {
             gameOverScreen.SetActive(true);
-        }
     }
 }
