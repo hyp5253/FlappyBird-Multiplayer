@@ -7,7 +7,7 @@ public class MovePipe : NetworkBehaviour
     public float moveSpeed = 5;
     public float destroyPipeZone = -45;
 
-    // Update is called once per frame
+    // move the pipe to the left every frame by moveSpeed and destroy it if it goes off screen
     void Update()
     {
         if (!IsServer) return;
@@ -15,8 +15,6 @@ public class MovePipe : NetworkBehaviour
 
         // if a pipe has gone off screen we don't need it anymore so destroy it
         if (transform.position.x < destroyPipeZone)
-        {
             GetComponent<NetworkObject>().Despawn();
-        }
     }
 }

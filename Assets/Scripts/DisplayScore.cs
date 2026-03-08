@@ -15,6 +15,7 @@ public class DisplayScore : MonoBehaviour
 
         BirdScript[] birds = FindObjectsByType<BirdScript>(FindObjectsSortMode.None);
 
+        // display the score for each player
         foreach (var bird in birds)
         {
             Score score = bird.GetComponent<Score>();

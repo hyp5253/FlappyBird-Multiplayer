@@ -9,8 +9,8 @@ public class AutoConnect : MonoBehaviour
     public bool isHost = true;
 
     [Header("Client settings")]
-    public string hostip = "";
-    public ushort port = 7777;
+    public string hostip = "127.0.0.1";
+    public ushort port = 7778;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

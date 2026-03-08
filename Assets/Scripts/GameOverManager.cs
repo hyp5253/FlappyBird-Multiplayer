@@ -8,35 +8,34 @@ public class GameOverManager : NetworkBehaviour
     public GameObject gameOverScreen;
     public GameObject startButton;
 
+    // let us know if the game has started or not across all clients by using a network variable
     private NetworkVariable<bool> gameStarted = new NetworkVariable<bool>(false);
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
 
         if (gameOverScreen != null)
             gameOverScreen.SetActive(false);
     }
 
+    // can only start the game from the server aka click the start button
     public void StartGame()
     {
         if (!IsServer) return;
+        gameStarted.Value = true;
         StartGameClientRpc();
     }
 
+    // Server --> Client
+    // The server calls this function to hide the start button on all clients
     [ClientRpc]
     private void StartGameClientRpc()
     {
-        gameStarted.Value = true;
         startButton.SetActive(false);
-
     }
 
+    // arrow function to check if the game has started or not
     public bool IsGameStarted() => gameStarted.Value;
 
     // Every time a bird dies, we check if the game is over by counting how many birds are still alive

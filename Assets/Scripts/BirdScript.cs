@@ -1,6 +1,4 @@
-using JetBrains.Annotations;
 using Unity.Netcode;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class BirdScript : NetworkBehaviour
@@ -17,10 +15,10 @@ public class BirdScript : NetworkBehaviour
     // Predefined color palette for players
     private static readonly Color[] PlayerColors = new Color[]
     {
-        Color.orange,    // Player 1
-        Color.yellow,    // Player 2
+        Color.red,    // Player 1
+        Color.cyan,    // Player 2
         Color.green,     // Player 3
-        Color.blue,      // Player 4
+        Color.magenta,      // Player 4
     };
 
     private void Awake()
@@ -38,6 +36,7 @@ public class BirdScript : NetworkBehaviour
         int colorIndex = (int)(OwnerClientId) % PlayerColors.Length;
         spriteRenderer.color = PlayerColors[colorIndex];
 
+        
         // Set sorting order - owned player on top
         spriteRenderer.sortingOrder = (IsOwner) ? 10 : 0;
     }
