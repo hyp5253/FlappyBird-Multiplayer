@@ -10,6 +10,7 @@ public class GameOverManager : NetworkBehaviour
 
     // let us know if the game has started or not across all clients by using a network variable
     private NetworkVariable<bool> gameStarted = new NetworkVariable<bool>(false);
+    //private bool gameStartedLocal = false;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class GameOverManager : NetworkBehaviour
     {
         if (!IsServer) return;
         gameStarted.Value = true;
+        //gameStartedLocal = true;
         StartGameClientRpc();
     }
 
@@ -32,6 +34,7 @@ public class GameOverManager : NetworkBehaviour
     [ClientRpc]
     private void StartGameClientRpc()
     {
+        //gameStartedLocal = true;
         startButton.SetActive(false);
     }
 
